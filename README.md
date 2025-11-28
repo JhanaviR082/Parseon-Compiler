@@ -41,7 +41,7 @@ npm run dev
 cd frontend
 python3 -m http.server 8080
 Access application at: http://localhost:8080
-
+```
 PARSEON Language Specification
 Core Features
 English-like syntax with natural keywords
