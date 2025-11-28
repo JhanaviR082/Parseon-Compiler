@@ -1,0 +1,2446 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Parseon Compiler</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+
+/* ========================================
+
+PARSEON COMPILER - STYLE SHEET
+
+Techy Black Theme with Cyber Aesthetics
+
+======================================== */
+
+
+
+/* === ROOT VARIABLES === */
+
+:root {
+
+--bg-primary: #161f25;
+
+--bg-secondary: #000000;
+
+--bg-tertiary: #000000;
+
+--bg-elevated: #dc4403;
+
+
+--accent-primary: #dfd2ce;
+
+--accent-secondary: #d2c7bc;
+
+--accent-warning: #da5000;
+
+--accent-error: #ff3333;
+
+
+--text-primary: #e0e0e0;
+
+--text-secondary: #a0a0a0;
+
+--text-tertiary: #666666;
+
+
+--border-color: #000000;
+
+--border-glow: rgba(255, 255, 255, 0.3);
+
+
+--font-main: 'Share Tech Mono', monospace;
+
+--font-display: 'Orbitron', sans-serif;
+
+
+--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+
+--shadow-md: 0 4px 16px rgba(0, 0, 0, 0.6);
+
+--shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.8);
+
+--shadow-glow: 0 0 20px rgba(255, 255, 255, 0.2);
+
+
+--transition-fast: 0.2s ease;
+
+--transition-normal: 0.3s ease;
+
+--transition-slow: 0.5s ease;
+
+}
+
+
+
+/* === RESET & BASE === */
+
+* {
+
+margin: 0;
+
+padding: 0;
+
+box-sizing: border-box;
+
+}
+
+
+
+body {
+
+font-family: var(--font-main);
+
+background: var(--bg-primary);
+
+color: var(--text-primary);
+
+overflow-x: hidden;
+
+line-height: 1.6;
+
+}
+
+
+
+/* Custom Scrollbar */
+
+::-webkit-scrollbar {
+
+width: 10px;
+
+height: 10px;
+
+}
+
+
+
+::-webkit-scrollbar-track {
+
+background: var(--bg-secondary);
+
+}
+
+
+
+::-webkit-scrollbar-thumb {
+
+background: var(--accent-primary);
+
+border-radius: 5px;
+
+}
+
+
+
+::-webkit-scrollbar-thumb:hover {
+
+background: var(--accent-secondary);
+
+}
+
+
+
+/* === LOADING SCREEN === */
+
+.loading-screen {
+
+position: fixed;
+
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+background: var(--bg-primary);
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+z-index: 10000;
+
+transition: opacity var(--transition-slow);
+
+}
+
+
+
+.loading-screen.fade-out {
+
+opacity: 0;
+
+pointer-events: none;
+
+}
+
+
+
+.loading-content {
+
+text-align: center;
+
+position: relative;
+
+}
+
+
+
+/* Glitch Effect */
+
+.glitch-wrapper {
+
+margin-bottom: 40px;
+
+}
+
+
+
+.glitch {
+
+font-family: var(--font-display);
+
+font-size: 100px;
+
+font-weight: 900;
+
+color: var(--accent-primary);
+
+text-transform: uppercase;
+
+position: relative;
+
+text-shadow:
+
+0 0 10px var(--accent-primary),
+
+0 0 10px var(--accent-primary),
+
+0 0 10px var(--accent-primary);
+
+animation: glitch-pulse 3s ease-in-out infinite;
+
+}
+
+
+
+.glitch::before,
+
+.glitch::after {
+
+content: attr(data-text);
+
+position: absolute;
+
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+}
+
+
+
+.glitch::before {
+
+left: 2px;
+
+text-shadow: -2px 0 var(--accent-error);
+
+clip: rect(24px, 550px, 90px, 0);
+
+animation: glitch-anim 2s infinite linear alternate-reverse;
+
+}
+
+
+
+.glitch::after {
+
+left: -2px;
+
+text-shadow: -2px 0 var(--accent-secondary);
+
+clip: rect(85px, 550px, 140px, 0);
+
+animation: glitch-anim 2s infinite linear alternate-reverse;
+
+}
+
+
+
+@keyframes glitch-anim {
+
+0% { clip: rect(17px, 9999px, 94px, 0); }
+
+20% { clip: rect(76px, 9999px, 62px, 0); }
+
+40% { clip: rect(39px, 9999px, 65px, 0); }
+
+60% { clip: rect(93px, 9999px, 23px, 0); }
+
+80% { clip: rect(45px, 9999px, 78px, 0); }
+
+100% { clip: rect(55px, 9999px, 12px, 0); }
+
+}
+
+
+
+@keyframes glitch-pulse {
+
+0%, 100% {
+
+text-shadow:
+
+0 0 10px var(--accent-primary),
+
+0 0 20px var(--accent-primary),
+
+0 0 40px var(--accent-primary);
+
+}
+
+50% {
+
+text-shadow:
+
+0 0 20px var(--accent-primary),
+
+0 0 40px var(--accent-primary),
+
+0 0 80px var(--accent-primary);
+
+}
+
+}
+
+
+
+/* Loading Bar */
+
+.loading-bar {
+
+width: 400px;
+
+height: 4px;
+
+background: var(--bg-secondary);
+
+border-radius: 2px;
+
+overflow: hidden;
+
+margin: 0 auto 20px;
+
+border: 1px solid var(--border-color);
+
+}
+
+
+
+.loading-progress {
+
+height: 100%;
+
+background: linear-gradient(90deg,
+
+var(--accent-primary) 0%,
+
+var(--accent-secondary) 50%,
+
+var(--accent-primary) 100%);
+
+width: 0;
+
+animation: loading-progress 2s ease-in-out forwards;
+
+box-shadow: 0 0 10px var(--accent-primary);
+
+}
+
+
+
+@keyframes loading-progress {
+
+0% { width: 0; }
+
+100% { width: 100%; }
+
+}
+
+
+
+.loading-text {
+
+font-size: 14px;
+
+color: var(--accent-primary);
+
+letter-spacing: 3px;
+
+animation: loading-text-pulse 1.5s ease-in-out infinite;
+
+}
+
+
+
+@keyframes loading-text-pulse {
+
+0%, 100% { opacity: 0.5; }
+
+50% { opacity: 1; }
+
+}
+
+
+
+
+
+
+
+/* === MAIN APP === */
+
+.app {
+
+min-height: 100vh;
+
+display: flex;
+
+flex-direction: column;
+
+opacity: 0;
+
+transition: opacity var(--transition-slow);
+
+}
+
+
+
+.app.visible {
+
+opacity: 1;
+
+}
+
+
+
+.hidden {
+
+display: none !important;
+
+}
+
+
+
+.container {
+
+max-width: 1400px;
+
+margin: 0 auto;
+
+padding: 0 20px;
+
+width: 100%;
+
+}
+
+
+
+/* === HEADER === */
+
+.header {
+
+background: var(--bg-secondary);
+
+border-bottom: 2px solid var(--border-color);
+
+padding: 20px 0;
+
+position: sticky;
+
+top: 0;
+
+z-index: 100;
+
+backdrop-filter: blur(10px);
+
+box-shadow: var(--shadow-md);
+
+}
+
+
+
+.header-content {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+flex-wrap: wrap;
+
+gap: 20px;
+
+}
+
+
+
+.logo-section {
+
+display: flex;
+
+align-items: center;
+
+gap: 20px;
+
+}
+
+
+
+.logo {
+
+font-family: var(--font-display);
+
+font-size: 32px;
+
+font-weight: 900;
+
+color: var(--accent-primary);
+
+text-shadow:
+
+0 0 10px var(--accent-primary),
+
+0 0 20px rgba(0, 0, 0, 0.5);
+
+letter-spacing: 2px;
+
+}
+
+
+
+.logo-bracket {
+
+color: var(--accent-secondary);
+
+}
+
+
+
+.compiler-status {
+
+display: flex;
+
+align-items: center;
+
+gap: 8px;
+
+padding: 8px 16px;
+
+background: var(--bg-tertiary);
+
+border: 1px solid var(--border-color);
+
+border-radius: 20px;
+
+}
+
+
+
+.status-dot {
+
+width: 10px;
+
+height: 10px;
+
+background: var(--accent-primary);
+
+border-radius: 50%;
+
+animation: status-pulse 1s ease-in-out infinite;
+
+box-shadow: 0 0 10px var(--accent-primary);
+
+}
+
+
+
+@keyframes status-pulse {
+
+0%, 100% { opacity: 1; }
+
+50% { opacity: 0.5; }
+
+}
+
+
+
+.status-text {
+
+font-size: 12px;
+
+font-weight: 700;
+
+color: var(--accent-primary);
+
+letter-spacing: 1px;
+
+}
+
+
+
+/* Navigation */
+
+.nav {
+
+display: flex;
+
+gap: 15px;
+
+flex-wrap: wrap;
+
+}
+
+
+
+.nav-btn {
+
+display: flex;
+
+align-items: center;
+
+gap: 8px;
+
+padding: 12px 24px;
+
+background: var(--bg-tertiary);
+
+border: 2px solid var(--border-color);
+
+color: var(--text-primary);
+
+font-family: var(--font-main);
+
+font-size: 14px;
+
+font-weight: 700;
+
+cursor: pointer;
+
+transition: all var(--transition-fast);
+
+border-radius: 4px;
+
+letter-spacing: 1px;
+
+}
+
+
+
+.nav-btn:hover {
+
+background: var(--bg-elevated);
+
+border-color: var(--accent-primary);
+
+color: var(--accent-primary);
+
+box-shadow: var(--shadow-glow);
+
+transform: translateY(-2px);
+
+}
+
+
+
+.btn-icon {
+
+font-size: 18px;
+
+}
+
+
+
+/* === MAIN CONTENT === */
+
+.main-content {
+
+flex: 1;
+
+padding: 40px 0;
+
+}
+
+
+
+.editor-section {
+
+display: grid;
+
+grid-template-columns: 1fr 1fr;
+
+gap: 30px;
+
+}
+
+
+
+/* Panel Styles */
+
+.editor-panel,
+
+.output-panel {
+
+background: var(--bg-secondary);
+
+border: 2px solid var(--border-color);
+
+border-radius: 8px;
+
+overflow: hidden;
+
+box-shadow: var(--shadow-md);
+
+display: flex;
+
+flex-direction: column;
+
+}
+
+
+
+.panel-header {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+padding: 15px 20px;
+
+background: var(--bg-tertiary);
+
+border-bottom: 2px solid var(--border-color);
+
+}
+
+
+
+.panel-title {
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+font-weight: 700;
+
+font-size: 14px;
+
+letter-spacing: 2px;
+
+color: var(--accent-primary);
+
+}
+
+
+
+.panel-icon {
+
+font-size: 20px;
+
+}
+
+
+
+/* Editor Controls */
+
+.editor-controls {
+
+display: flex;
+
+gap: 10px;
+
+}
+
+
+
+.control-btn {
+
+width: 36px;
+
+height: 36px;
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+background: var(--bg-secondary);
+
+border: 1px solid var(--border-color);
+
+border-radius: 4px;
+
+cursor: pointer;
+
+transition: all var(--transition-fast);
+
+font-size: 18px;
+
+color: var(--text-secondary);
+
+}
+
+
+
+.control-btn:hover {
+
+background: var(--bg-elevated);
+
+border-color: var(--accent-primary);
+
+color: var(--accent-primary);
+
+transform: scale(1.1);
+
+}
+
+
+
+/* Editor Body */
+
+.editor-body {
+
+display: flex;
+
+flex: 1;
+
+overflow: hidden;
+
+}
+
+
+
+.line-numbers {
+
+padding: 20px 10px;
+
+background: var(--bg-tertiary);
+
+color: var(--text-tertiary);
+
+text-align: right;
+
+user-select: none;
+
+font-size: 14px;
+
+line-height: 1.6;
+
+border-right: 2px solid var(--border-color);
+
+min-width: 50px;
+
+}
+
+
+
+.code-editor {
+
+flex: 1;
+
+padding: 20px;
+
+background: var(--bg-primary);
+
+border: none;
+
+outline: none;
+
+color: var(--text-primary);
+
+font-family: var(--font-main);
+
+font-size: 14px;
+
+line-height: 1.6;
+
+resize: none;
+
+tab-size: 4;
+
+}
+
+
+
+.code-editor::placeholder {
+
+color: var(--text-tertiary);
+
+}
+
+
+
+/* Panel Footer */
+
+.panel-footer {
+
+padding: 20px;
+
+background: var(--bg-tertiary);
+
+border-top: 2px solid var(--border-color);
+
+}
+
+
+
+/* Compile Button */
+
+.compile-btn {
+
+width: 100%;
+
+padding: 16px;
+
+background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+
+border: none;
+
+color: var(--bg-primary);
+
+font-family: var(--font-display);
+
+font-size: 16px;
+
+font-weight: 900;
+
+letter-spacing: 2px;
+
+cursor: pointer;
+
+border-radius: 4px;
+
+position: relative;
+
+overflow: hidden;
+
+transition: all var(--transition-fast);
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+gap: 10px;
+
+}
+
+
+
+.compile-btn:hover {
+
+box-shadow:
+
+var(--shadow-glow),
+
+0 0 40px rgba(255, 255, 255, 0.4);
+
+transform: translateY(-2px);
+
+}
+
+
+
+.compile-btn:active {
+
+transform: translateY(0);
+
+}
+
+
+
+.btn-spark {
+
+position: absolute;
+
+top: 50%;
+
+left: 0;
+
+width: 100%;
+
+height: 2px;
+
+background: white;
+
+transform: translateX(-100%) translateY(-50%);
+
+transition: transform 0.3s ease;
+
+}
+
+
+
+.compile-btn:hover .btn-spark {
+
+transform: translateX(100%) translateY(-50%);
+
+}
+
+
+
+.btn-text {
+
+position: relative;
+
+z-index: 1;
+
+}
+
+
+
+.btn-arrow {
+
+font-size: 20px;
+
+transition: transform var(--transition-fast);
+
+}
+
+
+
+.compile-btn:hover .btn-arrow {
+
+transform: translateX(5px);
+
+}
+
+
+
+.compile-btn.compiling {
+
+background: var(--accent-warning);
+
+pointer-events: none;
+
+animation: compiling-pulse 1s ease-in-out infinite;
+
+}
+
+
+
+@keyframes compiling-pulse {
+
+0%, 100% { opacity: 1; }
+
+50% { opacity: 0.7; }
+
+}
+
+
+
+/* Compilation Indicator */
+
+.compilation-indicator {
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+padding: 8px 16px;
+
+background: var(--bg-secondary);
+
+border: 1px solid var(--border-color);
+
+border-radius: 20px;
+
+margin-bottom: 15px;
+
+}
+
+
+
+.indicator-pulse {
+
+width: 10px;
+
+height: 10px;
+
+background: var(--accent-primary);
+
+border-radius: 50%;
+
+box-shadow: 0 0 10px var(--accent-primary);
+
+}
+
+
+
+.compilation-indicator.compiling .indicator-pulse {
+
+background: var(--accent-warning);
+
+box-shadow: 0 0 10px var(--accent-warning);
+
+animation: indicator-pulse 0.8s ease-in-out infinite;
+
+}
+
+
+
+@keyframes indicator-pulse {
+
+0%, 100% { transform: scale(1); }
+
+50% { transform: scale(1.3); }
+
+}
+
+
+
+.indicator-text {
+
+font-size: 12px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+color: var(--accent-primary);
+
+}
+
+
+
+.compilation-indicator.compiling .indicator-text {
+
+color: var(--accent-warning);
+
+}
+
+
+
+/* Output Console */
+
+.output-body {
+
+flex: 1;
+
+overflow: auto;
+
+max-height: 500px;
+
+}
+
+
+
+.output-console {
+
+padding: 20px;
+
+background: var(--bg-primary);
+
+color: var(--accent-primary);
+
+font-family: var(--font-main);
+
+font-size: 14px;
+
+line-height: 1.6;
+
+white-space: pre-wrap;
+
+word-wrap: break-word;
+
+min-height: 300px;
+
+}
+
+
+
+.output-console.error {
+
+color: var(--accent-error);
+
+}
+
+
+
+.clear-output-btn {
+
+width: 100%;
+
+padding: 12px;
+
+background: var(--bg-secondary);
+
+border: 2px solid var(--border-color);
+
+color: var(--text-secondary);
+
+font-family: var(--font-main);
+
+font-size: 14px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+cursor: pointer;
+
+border-radius: 4px;
+
+transition: all var(--transition-fast);
+
+}
+
+
+
+.clear-output-btn:hover {
+
+background: var(--bg-elevated);
+
+border-color: var(--accent-error);
+
+color: var(--accent-error);
+
+}
+
+
+
+/* === FOOTER === */
+
+.footer {
+
+background: var(--bg-secondary);
+
+border-top: 2px solid var(--border-color);
+
+padding: 30px 0;
+
+margin-top: 40px;
+
+}
+
+
+
+.footer-content {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+flex-wrap: wrap;
+
+gap: 20px;
+
+}
+
+
+
+.footer-content p {
+
+color: var(--text-secondary);
+
+font-size: 14px;
+
+}
+
+
+
+.tech-stack {
+
+display: flex;
+
+gap: 10px;
+
+flex-wrap: wrap;
+
+}
+
+
+
+.tech-badge {
+
+padding: 6px 12px;
+
+background: var(--bg-tertiary);
+
+border: 1px solid var(--border-color);
+
+border-radius: 4px;
+
+font-size: 11px;
+
+font-weight: 700;
+
+letter-spacing: 1px;
+
+color: var(--accent-secondary);
+
+}
+
+
+
+/* === MODALS === */
+
+.modal {
+
+display: none;
+
+position: fixed;
+
+top: 0;
+
+left: 0;
+
+width: 100%;
+
+height: 100%;
+
+background: rgba(0, 0, 0, 0.9);
+
+z-index: 1000;
+
+align-items: center;
+
+justify-content: center;
+
+backdrop-filter: blur(5px);
+
+animation: modal-fade-in var(--transition-normal);
+
+}
+
+
+
+.modal.active {
+
+display: flex;
+
+}
+
+
+
+@keyframes modal-fade-in {
+
+from {
+
+opacity: 0;
+
+}
+
+to {
+
+opacity: 1;
+
+}
+
+}
+
+
+
+.modal-content {
+
+background: var(--bg-secondary);
+
+border: 2px solid var(--border-color);
+
+border-radius: 8px;
+
+width: 90%;
+
+max-width: 900px;
+
+max-height: 80vh;
+
+display: flex;
+
+flex-direction: column;
+
+box-shadow: var(--shadow-lg);
+
+animation: modal-slide-up var(--transition-normal);
+
+}
+
+
+
+@keyframes modal-slide-up {
+
+from {
+
+transform: translateY(50px);
+
+opacity: 0;
+
+}
+
+to {
+
+transform: translateY(0);
+
+opacity: 1;
+
+}
+
+}
+
+
+
+.modal-header {
+
+display: flex;
+
+justify-content: space-between;
+
+align-items: center;
+
+padding: 25px 30px;
+
+background: var(--bg-tertiary);
+
+border-bottom: 2px solid var(--border-color);
+
+}
+
+
+
+.modal-title {
+
+font-family: var(--font-display);
+
+font-size: 24px;
+
+font-weight: 700;
+
+color: var(--accent-primary);
+
+display: flex;
+
+align-items: center;
+
+gap: 15px;
+
+}
+
+
+
+.modal-icon {
+
+font-size: 30px;
+
+}
+
+
+
+.modal-close {
+
+width: 40px;
+
+height: 40px;
+
+background: var(--bg-secondary);
+
+border: 2px solid var(--border-color);
+
+border-radius: 4px;
+
+color: var(--text-primary);
+
+font-size: 24px;
+
+cursor: pointer;
+
+transition: all var(--transition-fast);
+
+display: flex;
+
+align-items: center;
+
+justify-content: center;
+
+line-height: 1;
+
+}
+
+
+
+.modal-close:hover {
+
+background: var(--accent-error);
+
+border-color: var(--accent-error);
+
+color: white;
+
+transform: rotate(90deg);
+
+}
+
+
+
+.modal-body {
+
+padding: 30px;
+
+overflow-y: auto;
+
+flex: 1;
+
+}
+
+
+
+/* Documentation Styles */
+
+.doc-section {
+
+margin-bottom: 35px;
+
+padding: 25px;
+
+background: var(--bg-tertiary);
+
+border: 1px solid var(--border-color);
+
+border-radius: 8px;
+
+}
+
+
+
+.doc-section h3 {
+
+color: var(--accent-primary);
+
+font-family: var(--font-display);
+
+font-size: 20px;
+
+margin-bottom: 15px;
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+}
+
+
+
+.doc-section p {
+
+color: var(--text-secondary);
+
+margin-bottom: 15px;
+
+line-height: 1.8;
+
+}
+
+
+
+.doc-section code {
+
+background: var(--bg-primary);
+
+color: var(--accent-secondary);
+
+padding: 3px 8px;
+
+border-radius: 4px;
+
+font-family: var(--font-main);
+
+font-size: 13px;
+
+}
+
+
+
+.doc-section pre {
+
+background: var(--bg-primary);
+
+padding: 20px;
+
+border-radius: 8px;
+
+border: 1px solid var(--border-color);
+
+overflow-x: auto;
+
+margin-top: 15px;
+
+}
+
+
+
+.doc-section pre code {
+
+background: none;
+
+padding: 0;
+
+}
+
+
+
+/* Example Styles */
+
+.example-card {
+
+background: var(--bg-tertiary);
+
+border: 1px solid var(--border-color);
+
+border-radius: 8px;
+
+padding: 20px;
+
+margin-bottom: 20px;
+
+transition: all var(--transition-fast);
+
+cursor: pointer;
+
+}
+
+
+
+.example-card:hover {
+
+border-color: var(--accent-primary);
+
+box-shadow: var(--shadow-glow);
+
+transform: translateY(-3px);
+
+}
+
+
+
+.example-card h4 {
+
+color: var(--accent-primary);
+
+font-size: 18px;
+
+margin-bottom: 10px;
+
+display: flex;
+
+align-items: center;
+
+gap: 10px;
+
+}
+
+
+
+.example-card p {
+
+color: var(--text-secondary);
+
+margin-bottom: 15px;
+
+}
+
+
+
+.example-card pre {
+
+background: var(--bg-primary);
+
+padding: 15px;
+
+border-radius: 6px;
+
+border: 1px solid var(--border-color);
+
+overflow-x: auto;
+
+font-size: 13px;
+
+}
+
+
+
+.example-card pre code {
+
+color: var(--accent-secondary);
+
+font-family: var(--font-main);
+
+}
+
+
+
+/* Responsive Design */
+
+@media (max-width: 1024px) {
+
+.editor-section {
+
+grid-template-columns: 1fr;
+
+}
+
+
+.glitch {
+
+font-size: 60px;
+
+}
+
+
+.loading-bar {
+
+width: 300px;
+
+}
+
+}
+
+
+
+@media (max-width: 768px) {
+
+.header-content {
+
+flex-direction: column;
+
+}
+
+
+.nav {
+
+width: 100%;
+
+justify-content: center;
+
+}
+
+
+.nav-btn {
+
+flex: 1;
+
+justify-content: center;
+
+}
+
+
+.glitch {
+
+font-size: 50px;
+
+}
+
+
+.loading-bar {
+
+width: 250px;
+
+}
+
+
+.modal-content {
+
+width: 95%;
+
+max-height: 90vh;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- Loading Screen -->
+
+<div class="loading-screen" id="loadingScreen">
+
+<div class="loading-content">
+
+<div class="circuit-lines">
+
+<div class="circuit-line line-1"></div>
+
+<div class="circuit-line line-2"></div>
+
+<div class="circuit-line line-3"></div>
+
+<div class="circuit-line line-4"></div>
+
+</div>
+
+
+<div class="glitch-wrapper">
+
+<h1 class="glitch" data-text="PARSEON">PARSEON</h1>
+
+</div>
+
+
+<div class="loading-bar">
+
+<div class="loading-progress"></div>
+
+</div>
+
+
+<p class="loading-text">INITIALIZING COMPILER...</p>
+
+</div>
+
+</div>
+
+
+
+<!-- Main App -->
+
+<div class="app" id="mainApp">
+
+<!-- Header -->
+
+<header class="header">
+
+<div class="container">
+
+<div class="header-content">
+
+<div class="logo-section">
+
+<h1 class="logo">
+
+<span class="logo-bracket">&lt;</span>PARSEON<span class="logo-bracket">/&gt;</span>
+
+</h1>
+
+<div class="compiler-status">
+
+<div class="status-dot"></div>
+
+<span class="status-text">ONLINE</span>
+
+</div>
+
+</div>
+
+
+<nav class="nav">
+
+<button class="nav-btn" id="docsBtn">
+
+<i class="fas fa-book btn-icon"></i>
+
+DOCS
+
+</button>
+
+<button class="nav-btn" id="examplesBtn">
+
+<i class="fas fa-code btn-icon"></i>
+
+EXAMPLES
+
+</button>
+
+</nav>
+
+</div>
+
+</div>
+
+</header>
+
+
+
+<!-- Main Content -->
+
+<main class="main-content">
+
+<div class="container">
+
+<div class="editor-section">
+
+<!-- Editor Panel -->
+
+<div class="editor-panel">
+
+<div class="panel-header">
+
+<div class="panel-title">
+
+<i class="fas fa-file-code panel-icon"></i>
+
+CODE EDITOR
+
+</div>
+
+<div class="editor-controls">
+
+<button class="control-btn" id="copyBtn" title="Copy Code">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                                <button class="control-btn" id="downloadBtn" title="Download Source">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="editor-body">
+                            <div class="line-numbers" id="lineNumbers">1</div>
+                            <textarea class="code-editor" id="codeEditor" spellcheck="false" placeholder="// Write your Parseon code here..."></textarea>
+                        </div>
+                        
+                        <div class="panel-footer">
+                            <div class="compilation-indicator" id="compilationIndicator">
+                                <div class="indicator-pulse"></div>
+                                <span class="indicator-text" id="indicatorText">SYSTEM READY</span>
+                            </div>
+                            
+                            <button class="compile-btn" id="compileBtn">
+                                <div class="btn-spark"></div>
+                                <span class="btn-text">INITIATE SEQUENCE</span>
+                                <i class="fas fa-chevron-right btn-arrow"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="output-panel">
+                        <div class="panel-header">
+                            <div class="panel-title">
+                                <i class="fas fa-terminal panel-icon"></i>
+                                SYSTEM OUTPUT
+                            </div>
+                            <div class="editor-controls">
+                                <button class="control-btn" id="clearOutputBtn" title="Clear Console">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="output-body">
+                            <div class="output-console" id="outputConsole">// Output stream awaiting data...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p>&copy; 2025 PARSEON SYSTEMS. ALL RIGHTS RESERVED.</p>
+                    <div class="tech-stack">
+                        <span class="tech-badge">NODE.JS</span>
+                        <span class="tech-badge">HTML</span>
+                        <span class="tech-badge">CSS</span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div class="modal" id="docsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-book modal-icon"></i>
+                    DOCUMENTATION
+                </h2>
+                <button class="modal-close" id="closeDocs">&times;</button>
+            </div>
+            <div class="modal-body" id="docsContent">
+                <div class="doc-section">
+                    <h3><i class="fas fa-spinner fa-spin"></i> Loading data nodes...</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="examplesModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">
+                    <i class="fas fa-code modal-icon"></i>
+                    CODE EXAMPLES
+                </h2>
+                <button class="modal-close" id="closeExamples">&times;</button>
+            </div>
+            <div class="modal-body" id="examplesContent">
+                <div class="doc-section">
+                    <h3><i class="fas fa-spinner fa-spin"></i> Accessing database...</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Configuration ---
+            const API_URL = 'http://localhost:3000/api';
+            
+            // --- Elements ---
+            const loadingScreen = document.getElementById('loadingScreen');
+            const mainApp = document.getElementById('mainApp');
+            const codeEditor = document.getElementById('codeEditor');
+            const lineNumbers = document.getElementById('lineNumbers');
+            const outputConsole = document.getElementById('outputConsole');
+            const compileBtn = document.getElementById('compileBtn');
+            const indicator = document.getElementById('compilationIndicator');
+            const indicatorText = document.getElementById('indicatorText');
+            
+            // Modals
+            const docsModal = document.getElementById('docsModal');
+            const examplesModal = document.getElementById('examplesModal');
+            const docsBtn = document.getElementById('docsBtn');
+            const examplesBtn = document.getElementById('examplesBtn');
+            const closeDocs = document.getElementById('closeDocs');
+            const closeExamples = document.getElementById('closeExamples');
+
+            // --- Initialization ---
+            
+            // Simulate Loading Process
+            setTimeout(() => {
+                loadingScreen.classList.add('fade-out');
+                mainApp.classList.add('visible');
+                
+                // Typing effect for initial editor content
+                typewriterEffect("// Welcome to Parseon\n// Initialize variables and functions below...", codeEditor);
+            }, 2500);
+
+            // --- Editor Logic ---
+            
+            // Line Numbers Sync
+            const updateLineNumbers = () => {
+                const lines = codeEditor.value.split('\n').length;
+                lineNumbers.innerHTML = Array(lines).fill(0).map((_, i) => i + 1).join('<br>');
+            };
+
+            codeEditor.addEventListener('input', updateLineNumbers);
+            codeEditor.addEventListener('scroll', () => {
+                lineNumbers.scrollTop = codeEditor.scrollTop;
+            });
+
+            // Tab Key Support
+            codeEditor.addEventListener('keydown', (e) => {
+                if (e.key === 'Tab') {
+                    e.preventDefault();
+                    const start = codeEditor.selectionStart;
+                    const end = codeEditor.selectionEnd;
+                    codeEditor.value = codeEditor.value.substring(0, start) + "\t" + codeEditor.value.substring(end);
+                    codeEditor.selectionStart = codeEditor.selectionEnd = start + 1;
+                }
+            });
+
+            // Copy Button
+            document.getElementById('copyBtn').addEventListener('click', () => {
+                navigator.clipboard.writeText(codeEditor.value);
+                const originalText = document.getElementById('copyBtn').innerHTML;
+                document.getElementById('copyBtn').innerHTML = '<i class="fas fa-check" style="color: var(--accent-primary)"></i>';
+                setTimeout(() => document.getElementById('copyBtn').innerHTML = originalText, 2000);
+            });
+
+            // Clear Output
+            document.getElementById('clearOutputBtn').addEventListener('click', () => {
+                outputConsole.textContent = '// Output cleared';
+                outputConsole.classList.remove('error');
+            });
+
+            // --- Compilation Logic ---
+
+            compileBtn.addEventListener('click', async () => {
+                const code = codeEditor.value;
+                if (!code.trim()) return;
+
+                // UI Loading State
+                setCompilingState(true);
+                outputConsole.textContent = '>> INITIALIZING COMPILER BRIDGE...\n>> PARSING SYNTAX...\n';
+
+                try {
+                    const response = await fetch(`${API_URL}/compile`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ code })
+                    });
+
+                    const data = await response.json();
+
+                    // Artificial delay for "Cool Techy Effect" if response is too fast
+                    setTimeout(() => {
+                        if (response.ok) {
+                            outputConsole.textContent += `>> EXECUTION SUCCESSFUL\n\n${data.output || data.result}`;
+                            outputConsole.classList.remove('error');
+                        } else {
+                            outputConsole.textContent += `>> EXECUTION FAILED\n\n${data.error || 'Unknown Error'}`;
+                            outputConsole.classList.add('error');
+                        }
+                        setCompilingState(false);
+                    }, 800);
+
+                } catch (error) {
+                    outputConsole.textContent += `>> CRITICAL SYSTEM FAILURE\n>> CANNOT CONNECT TO BACKEND CORE\n\n${error.message}`;
+                    outputConsole.classList.add('error');
+                    setCompilingState(false);
+                }
+            });
+
+            function setCompilingState(isCompiling) {
+                if (isCompiling) {
+                    compileBtn.classList.add('compiling');
+                    compileBtn.querySelector('.btn-text').textContent = 'PROCESSING...';
+                    indicator.classList.add('compiling');
+                    indicatorText.textContent = 'COMPILING DATA';
+                } else {
+                    compileBtn.classList.remove('compiling');
+                    compileBtn.querySelector('.btn-text').textContent = 'INITIATE SEQUENCE';
+                    indicator.classList.remove('compiling');
+                    indicatorText.textContent = 'SYSTEM READY';
+                }
+            }
+
+            // --- Documentation & Examples Logic ---
+
+            // Fetch Docs
+            docsBtn.addEventListener('click', async () => {
+                docsModal.classList.add('active');
+                const contentDiv = document.getElementById('docsContent');
+                
+                try {
+                    const res = await fetch(`${API_URL}/docs`);
+                    const data = await res.json();
+                    
+                    // Assuming backend returns { docs: [ { title: "", content: "", code: "" } ] }
+                    // Adjust parsing based on your actual backend response structure
+                    let html = '';
+                    if(Array.isArray(data)) {
+                        data.forEach(item => {
+                            html += `
+                                <div class="doc-section">
+                                    <h3><i class="fas fa-terminal"></i> ${item.title || 'Section'}</h3>
+                                    <p>${item.description || item.content}</p>
+                                    ${item.syntax ? `<pre><code>${item.syntax}</code></pre>` : ''}
+                                </div>
+                            `;
+                        });
+                    } else {
+                        // Fallback static content if API structure differs or fails
+                        html = `
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Variables</h3>
+    <p><strong>Keywords:</strong> set, change, keep</p>
+    <pre><code>set variable_name = value
+change variable_name = new_value</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>set x = 10
+set name = "Alice"
+set flag = true
+change x = 20</code></pre>
+    <p><strong>Types:</strong></p>
+    <ul>
+        <li><strong>Numbers:</strong> Integers and floats (10, 3.14)</li>
+        <li><strong>Strings:</strong> Text in quotes ("Hello")</li>
+        <li><strong>Booleans:</strong> true or false</li>
+    </ul>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Output Statements</h3>
+    <p><strong>Keywords:</strong> say, show</p>
+    <pre><code>say "message"          # Print string
+show variable          # Print variable value
+show expression        # Print result of expression</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>say "Hello World"
+show x
+show x + y</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Input Statements</h3>
+    <p><strong>Keyword:</strong> ask</p>
+    <pre><code>ask variable_name</code></pre>
+    <p><strong>Example:</strong></p>
+    <pre><code>say "Enter your name:"
+ask username
+show username</code></pre>
+    <p>Input automatically detects if it's a number or string.</p>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Arithmetic Operations</h3>
+    <p><strong>Operators:</strong> +, -, *, /, %</p>
+    <p><strong>Examples:</strong></p>
+    <pre><code>set sum = 10 + 20
+set difference = 30 - 15
+set product = 5 * 6
+set quotient = 20 / 4
+set remainder = 17 % 5</code></pre>
+    <p><strong>Order of operations:</strong></p>
+    <ol>
+        <li>Parentheses ()</li>
+        <li>Multiplication *, Division /, Modulo %</li>
+        <li>Addition +, Subtraction -</li>
+    </ol>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Math Functions</h3>
+    <p><strong>Built-in functions:</strong></p>
+    <pre><code>sqrt(x)              # Square root
+pow(base, exponent)  # Power
+abs(x)               # Absolute value</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>show sqrt(25)           # Output: 5.00
+show pow(2, 8)          # Output: 256.00
+show abs(-15)           # Output: 15.00</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> String Operations</h3>
+    <p><strong>Concatenation:</strong> Use + to join strings</p>
+    <pre><code>set greeting = "Hello " + "World"
+set fullName = firstName + " " + lastName</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>set name = "Alice"
+set message = "Hello " + name
+say message              # Output: Hello Alice</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Conditionals</h3>
+    <p><strong>Keywords:</strong> when, check, otherwise, do, end</p>
+    <p><strong>Syntax:</strong></p>
+    <pre><code>when condition do
+    # statements
+end
+
+check condition do
+    # statements
+otherwise
+    # statements
+end</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>set x = 15
+set y = 10
+
+when x > y do
+    say "x is greater"
+end
+
+check x < 20 do
+    say "x is less than 20"
+otherwise
+    say "x is 20 or more"
+end</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Comparison Operators</h3>
+    <p><strong>Operators:</strong></p>
+    <pre><code>==    # Equal to
+!=    # Not equal to
+<     # Less than
+>     # Greater than
+<=    # Less than or equal
+>=    # Greater than or equal</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>when x == 10 do
+    say "x is 10"
+end
+
+when age >= 18 do
+    say "Adult"
+end</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Logical Operators</h3>
+    <p><strong>Keywords:</strong> and, or, not</p>
+    <p><strong>Examples:</strong></p>
+    <pre><code>set a = true
+set b = false
+
+when a and not b do
+    say "a is true and b is false"
+end
+
+when x > 5 or y < 10 do
+    say "At least one condition is true"
+end</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Loops - For Style</h3>
+    <p><strong>Keyword:</strong> loop</p>
+    <pre><code>loop variable = start to end do
+    # statements
+end</code></pre>
+    <p><strong>Examples:</strong></p>
+    <pre><code>loop i = 1 to 10 do
+    show i
+end
+
+set sum = 0
+loop num = 1 to 100 do
+    sum = sum + num
+end
+show sum</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Loops - While Style</h3>
+    <p><strong>Keyword:</strong> repeat</p>
+    <pre><code>repeat (condition) do
+    # statements
+end</code></pre>
+    <p><em>Note: Limited support, use with caution</em></p>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Loop Control</h3>
+    <p><strong>Keywords:</strong> break, continue</p>
+    <p><strong>Examples:</strong></p>
+    <pre><code>loop i = 1 to 10 do
+    when i == 5 do
+        break        # Exit loop
+    end
+    show i
+end
+
+loop i = 1 to 10 do
+    when i % 2 == 0 do
+        continue     # Skip to next iteration
+    end
+    show i         # Only odd numbers
+end</code></pre>
+</div>
+
+<div class="doc-section">
+    <h3><i class="fas fa-terminal"></i> Comments</h3>
+    <pre><code># Single-line comment
+
+/* 
+   Multi-line
+   comment
+*/</code></pre>
+</div>
+                        `;
+                    }
+                    contentDiv.innerHTML = html;
+                } catch (e) {
+                    contentDiv.innerHTML = '<p class="error">Failed to load documentation data.</p>';
+                }
+            });
+
+            // Fetch Examples
+            examplesBtn.addEventListener('click', async () => {
+                examplesModal.classList.add('active');
+                const contentDiv = document.getElementById('examplesContent');
+
+                try {
+                    const res = await fetch(`${API_URL}/examples`);
+                    const data = await res.json();
+                    
+                    let html = '';
+                    // Assuming backend returns { examples: [ { name: "", code: "" } ] }
+                    // If your backend returns an array directly, remove .examples
+                    const list = data.examples || data; 
+                    
+                    if(Array.isArray(list)) {
+                        list.forEach((ex, index) => {
+                            html += `
+                                <div class="example-card" onclick="loadExample(${index})">
+                                    <h4><i class="fas fa-microchip"></i> ${ex.name || 'Example ' + (index+1)}</h4>
+                                    <p>${ex.description || 'Click to load this code into editor.'}</p>
+                                    <pre><code>${ex.code}</code></pre>
+                                    <textarea id="ex-code-${index}" class="hidden">${ex.code}</textarea>
+                                </div>
+                            `;
+                        });
+                    }
+                    contentDiv.innerHTML = html;
+                } catch (e) {
+                    contentDiv.innerHTML = '<p class="error">Failed to retrieve example database.</p>';
+                }
+            });
+
+            // Modal Closing
+            window.addEventListener('click', (e) => {
+                if (e.target === docsModal) docsModal.classList.remove('active');
+                if (e.target === examplesModal) examplesModal.classList.remove('active');
+            });
+            closeDocs.onclick = () => docsModal.classList.remove('active');
+            closeExamples.onclick = () => examplesModal.classList.remove('active');
+
+            // --- Helper Functions ---
+            
+            // Global function to load example code
+            window.loadExample = (index) => {
+                const code = document.getElementById(`ex-code-${index}`).value;
+                codeEditor.value = code;
+                updateLineNumbers();
+                examplesModal.classList.remove('active');
+            };
+
+            function typewriterEffect(text, element) {
+                let i = 0;
+                element.value = '';
+                element.setAttribute('placeholder', '');
+                function type() {
+                    if (i < text.length) {
+                        element.value += text.charAt(i);
+                        i++;
+                        setTimeout(type, 30);
+                    } else {
+                        updateLineNumbers();
+                    }
+                }
+                type();
+            }
+        });
+    </script>
+</body>
+</html>
+
