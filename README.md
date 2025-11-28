@@ -42,22 +42,17 @@ cd frontend
 python3 -m http.server 8080
 Access application at: http://localhost:8080
 ```
-PARSEON Language Specification
-Core Features
-English-like syntax with natural keywords
+## PARSEON Language Specification
+### Core Features
+-English-like syntax with natural keywords
+-Structured programming constructs
+-Standard arithmetic and mathematical operations
+-String manipulation capabilities
+-Conditional and iterative control flow
 
-Dynamic typing with automatic type inference
-
-Structured programming constructs
-
-Standard arithmetic and mathematical operations
-
-String manipulation capabilities
-
-Conditional and iterative control flow
-
-Language Syntax
-Variable Declaration
+### Language Syntax
+#### Variable Declaration
+```bash
 parseon
 set identifier = expression
 change identifier = new_value
@@ -107,9 +102,9 @@ GET /api/docs - Language documentation
 GET /api/examples - Code examples collection
 
 POST /api/compile - Code compilation and execution
-
-Project Structure
-text
+``` 
+### Project Structure
+```bash
 Parseon-Compiler/
 ├── backend/
 │   ├── server.js           # Express server
@@ -120,15 +115,18 @@ Parseon-Compiler/
 ├── frontend/
 │   └── index.html          # Web interface
 └── README.md
-Compilation Process
-bash
+```
+### Compilation Process
+```bash
 cd backend/compiler
 bison -d englang.y
 flex englang.l
 gcc lex.yy.c englang.tab.c -o englang -ll -lm
 ./englang source_file.eng
-Usage Example
+```
+### Usage Example
 parseon
+```bash
 # Calculate factorial
 set n = 5
 set factorial = 1
@@ -142,14 +140,11 @@ say "Factorial of"
 show n
 say "is:"
 show factorial
-Development
+```
+#### Development
 The compiler implements standard compiler phases:
-
 Lexical Analysis - Token recognition
-
 Syntax Analysis - Grammar parsing
-
 Semantic Analysis - Symbol table management
-
 Execution - Direct interpretation
 
