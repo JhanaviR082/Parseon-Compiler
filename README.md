@@ -41,11 +41,9 @@ npm run dev
 cd frontend
 python3 -m http.server 8080
 Access application at: http://localhost:8080
-<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 27 13 AM" src="https://github.com/user-attachments/assets/959f91d3-312a-4fe8-936d-6a44057e8fdd" />
-<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 24 46 AM" src="https://github.com/user-attachments/assets/c5a6d38a-d3a2-40ad-ab66-285d25a6bcc6" />
-<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 27 34 AM" src="https://github.com/user-attachments/assets/760f1645-7929-4fb5-ada8-415483ad9d97" />
-<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 28 04 AM" src="https://github.com/user-attachments/assets/f524cd68-fd16-406d-ab0b-68f456ffeea3" />
-
+<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 24 46 AM" src="https://github.com/user-attachments/assets/ace2af32-8ea1-437d-ab9d-fe244161dac6" />
+<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 27 34 AM" src="https://github.com/user-attachments/assets/6904c7ee-eb4d-42af-bb9b-fa95680d58a4" />
+<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 28 04 AM" src="https://github.com/user-attachments/assets/cab92296-37fe-4f24-8e50-2cbf90156fd5" />
 
 
 ## PARSEON Language Specification
