@@ -6,8 +6,8 @@ A full-stack online compiler implementing the PARSEON programming language - a c
 
 Parseon Compiler provides a web-based integrated development environment for the PARSEON programming language, featuring real-time code compilation and execution with a modern cyberpunk-inspired interface.
 <img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 24 46 AM" src="https://github.com/user-attachments/assets/db30b229-fce7-43c6-bb30-fe90cf191bb0" />
-
-
+<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 27 34 AM" src="https://github.com/user-attachments/assets/8754dc7c-07bd-41b1-8932-5f0819c3c43a" />
+<img width="1249" height="864" alt="Screenshot 2025-11-29 at 2 28 04 AM" src="https://github.com/user-attachments/assets/b546a248-600d-49d8-918d-99da93456c8d" />
 
 ## Technical Architecture
 
